@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .App-logo {
@@ -35,4 +36,51 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.app-box{
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url("../public/oval-bg.png");
+  width: 718px;
+  height: 455px;
+}
+
+body{
+  background-color: rgb(151, 249, 151);
+}
+
+.homepage{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 50px 70px;
+  font-size: 1.3em;
+}
+
+.homepage h2{
+  color: #C0E3BE;
+}
+
+.buttons-home{
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+}
+
+.buttons-home a{
+  background-color: rgb(151, 249, 151);
+  text-decoration: none;
+  color: black;
+  padding: 5px 30px;
+  border-radius: 5px;
+}
+
+.homepage p{
+  text-align: left;
+  margin: 0px 250px 100px 0px;
+  color: rgb(133, 123, 123);
 }
