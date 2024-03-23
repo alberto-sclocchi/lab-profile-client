@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-	const [user, setUser] = useState();
+	const [user, setUser] = useState(null);
+	const [errorMessage, setErrorMessage] = useState(null);
+
     const service = new AuthService();
 	const navigateTo = useNavigate();
 
@@ -25,17 +27,22 @@ export const AuthProvider = ({ children }) => {
 	const logInUser = async (data) => {
 		// console.log({data: data});
 		const userResp = await service.logIn(data);
-		const decryptedCred = await service.verify(userResp.authToken);
-		setUser(decryptedCred);
 
-		navigateTo("/user-profile");
+		if(userResp.authToken){
+			const decryptedCred = await service.verify(userResp.authToken);
+			// setUser(decryptedCred);
+			setErrorMessage(null);
+			navigateTo("/user-profile");
+		} else{
+			setErrorMessage(userResp.message);
+		}
 	};
 
-	// const getCurrentUser = async () => {
-	// 	const currentUser = await service.getCurrentUser();
-	// 	console.log({userLoggedIn: currentUser});
-	// 	setUser(currentUser);
-	// }
+	const getCurrentUser = async () => {
+		const currentUser = await service.getCurrentUser();
+		// console.log({userLoggedIn: currentUser});
+		setUser(currentUser);
+	}
 
 	const logOutUser = async () =>{
 		await service.logOut();
@@ -44,7 +51,7 @@ export const AuthProvider = ({ children }) => {
 
 
 	return (
-		<AuthContext.Provider value={{ user, setUser, signUpUser, logInUser, logOutUser}}>
+		<AuthContext.Provider value={{ user, setUser, signUpUser, logInUser, logOutUser, getCurrentUser, errorMessage}}>
 			{children}
 		</AuthContext.Provider>
 	);

@@ -13,7 +13,7 @@ export default function SignUp() {
  const {signUpUser} = useContext(AuthContext);
 
  const handleChange = (event) => {
-    console.log({formData});
+    // console.log({formData});
     setFormData((prevState) => ({...prevState, [event.target.name] : event.target.value}))
  }
 

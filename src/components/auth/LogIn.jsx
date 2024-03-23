@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import AuthContext from './context/Auth.context';
 
 export default function LogIn() {
+    const {errorMessage} = useContext(AuthContext);
+
     const [ formData, setFormData] = useState({
         email:"",
         password: ""
@@ -11,7 +13,7 @@ export default function LogIn() {
      const {logInUser} = useContext(AuthContext);
     
      const handleChange = (event) => {
-        console.log({formData});
+        // console.log({formData});
         setFormData((prevState) => ({...prevState, [event.target.name] : event.target.value}))
      }
     
@@ -45,7 +47,11 @@ export default function LogIn() {
                 <button>Log in</button>
             </form>
 
+            <div>
             <p>If you don't have an account yet, you can create your account <Link to="/sign-up">here</Link>.</p>
+            {!!errorMessage && <b className='error'>{errorMessage}</b>}
+            </div>
+
         </div>
         <div className="info-box">
             <h2>Hello!!</h2>
